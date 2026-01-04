@@ -1,0 +1,132 @@
+.carouselContainer {
+  width: 100%;
+  overflow: hidden;
+  margin: var(--spacing-xl) 0;
+  position: relative;
+  padding: var(--spacing-lg) 0;
+}
+
+.carouselContainer::before,
+.carouselContainer::after {
+  content: '';
+  position: absolute;
+  top: var(--spacing-lg);
+  bottom: var(--spacing-lg);
+  width: 150px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.carouselContainer::before {
+  left: 0;
+  background: linear-gradient(to right, var(--color-bg-primary), transparent);
+}
+
+.carouselContainer::after {
+  right: 0;
+  background: linear-gradient(to left, var(--color-bg-primary), transparent);
+}
+
+.carousel {
+  display: flex;
+  gap: var(--spacing-lg);
+  width: max-content;
+  animation-duration: 60s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  padding: var(--spacing-sm) 0;
+}
+
+.scrollLeft {
+  animation-name: scrollLeft;
+}
+
+.scrollRight {
+  animation-name: scrollRight;
+}
+
+@keyframes scrollLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes scrollRight {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.photoWrapper {
+  flex-shrink: 0;
+  width: 300px;
+  height: 350px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 2px solid var(--color-border);
+  background-color: var(--color-bg-card);
+  transition: all var(--transition-base);
+  position: relative;
+  z-index: 1;
+}
+
+.photoWrapper:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-lg), var(--shadow-fire);
+  transform: translateY(-4px) scale(1.02);
+  z-index: 20;
+  animation-play-state: paused;
+}
+
+.photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .carouselContainer {
+    padding: var(--spacing-md) 0;
+  }
+
+  .carouselContainer::before,
+  .carouselContainer::after {
+    top: var(--spacing-md);
+    bottom: var(--spacing-md);
+    width: 80px;
+  }
+
+  .carousel {
+    padding: var(--spacing-xs) 0;
+  }
+
+  .photoWrapper {
+    width: 250px;
+    height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .carouselContainer::before,
+  .carouselContainer::after {
+    width: 50px;
+  }
+
+  .photoWrapper {
+    width: 200px;
+    height: 250px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel {
+    animation: none;
+  }
+}
